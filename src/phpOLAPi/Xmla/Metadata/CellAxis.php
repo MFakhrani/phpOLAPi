@@ -104,4 +104,12 @@ class CellAxis implements CellAxisInterface
 		$this->displayInfo = MetadataBase::getPropertyFromNode($node, 'DisplayInfo');
 	}
 	
+    public function hydrateObj($obj)
+	{
+		$this->memberUniqueName = isset($obj['UName']) ? $obj['UName'] : null;
+        $this->memberCaption = isset($obj['Caption']) ? $obj['Caption'] : null;
+        $this->levelUniqueName = isset($obj['LName']) ? $obj['LName'] : null;
+        $this->levelNumber = isset($obj['LNum']) ? $obj['LNum'] : null;
+        $this->displayInfo = isset($obj['DisplayInfo']) ? $obj['DisplayInfo'] : null;
+	}
 }

@@ -17,6 +17,7 @@ use phpOLAPi\Xmla\Metadata\CellAxis;
 use phpOLAPi\Xmla\Metadata\CellData;
 use phpOLAPi\Metadata\ResultSetInterface;
 use phpOLAPi\Xmla\Metadata\MetadataException;
+use phpOLAPi\Xmla\Metadata\MDXResultXMLParser;
 
 /**
 *	ResultSet
@@ -158,68 +159,17 @@ class ResultSet implements ResultSetInterface
      */	
 	public function hydrate(\DOMNode $node)
 	{
-		$this->cubeName = MetadataBase::getPropertyFromNode($node, 'CubeName');
-		$this->hierarchiesName = self::hydrateAxesInfos($node);
-		$this->cellAxisSet = self::hydrateAxesSet($node);
-		$this->cellDataSet = self::hydrateDataSet($node);
-	}
-	
-	protected static function hydrateAxesInfos(\DOMNode $node)
-	{
-		$result = array();
-		$axesInfo = $node->getElementsByTagName('AxisInfo');
-		foreach ($axesInfo as $axisInfo) {
-			$axisName = self::getAttribute($axisInfo, "name");
-			$hierarchiesInfo = $axisInfo->getElementsByTagName('HierarchyInfo');
-			foreach ($hierarchiesInfo as $hierarchyInfo) {
-				$result[$axisName][] = self::getAttribute($hierarchyInfo, "name");
-			}
-		}
-		return $result;
-	}
 
-	protected static function hydrateAxesSet(\DOMNode $node)
-	{
-		$result = array();
-		$cellAxes = $node->getElementsByTagName('Axis');
-		foreach ($cellAxes as $cellAxis) {
-			$axisName = self::getAttribute($cellAxis, "name");
-			$tuples = $cellAxis->getElementsByTagName('Tuple');
-			$i = 0;
-			foreach ($tuples as $tuple) {
-				$members = $tuple->getElementsByTagName('Member');
-				foreach ($members as $member) {
-					$cell = new cellAxis();
-					$cell->hydrate($member);
-					$result[$axisName][$i][] = $cell;
-				}
-				$i++;
-			}
-		}
-		return $result;
+		$xml_parser = new MDXResultXMLParser();
+
+		$doc = new \DOMDocument();
+		$node = $doc->importNode($node, true);
+		$xml_parser->parse($doc->saveXML($node));
+		
+
+		$this->cubeName = $xml_parser->data['CubeName'];
+		$this->hierarchiesName = $xml_parser->data['hierarchiesName'];
+		$this->cellAxisSet = $xml_parser->data['cellAxisSet'];
+		$this->cellDataSet = $xml_parser->data['cellDataSet'];
 	}
-
-
-
-	protected static function hydrateDataSet(\DOMNode $node)
-	{
-		$result = array();
-		$cellData = $node->getElementsByTagName('Cell');
-		foreach ($cellData as $data) {
-			$cellOrdinal = self::getAttribute($data, "CellOrdinal");
-			$cell = new CellData();
-			$cell->hydrate($data);
-			$result[$cellOrdinal] = $cell;
-		}
-		return $result;
-	}
-	
-	public static function getAttribute(\DOMNode $node, $attribute)
-	{
-		if (!$node->hasAttribute($attribute)){
-			throw new MetadataException('Hydratation error.'); 
-		} 
-		return $node->getAttribute($attribute);
-	}
-
 }

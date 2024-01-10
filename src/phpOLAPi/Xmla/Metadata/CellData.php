@@ -75,5 +75,12 @@ class CellData implements CellDataInterface
 		$this->formatedValue = MetadataBase::getPropertyFromNode($node, 'FmtValue', true);
 		$this->formatString = MetadataBase::getPropertyFromNode($node, 'FormatString', true);
 	}
+
+	public function hydrateObj($obj)
+	{
+        $this->value = isset($obj['Value']) ? $obj['Value'] : null;
+        $this->formatedValue = isset($obj['FmtValue']) ? $obj['FmtValue'] : null;
+        $this->formatString = isset($obj['FormatString']) ? $obj['FormatString'] : null;
+	}
 	
 }
