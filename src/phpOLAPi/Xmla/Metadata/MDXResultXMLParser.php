@@ -157,7 +157,7 @@ class MDXResultXMLParser
         }
 
         if ($this->state === 2 && $name == 'Member') {
-            $cell = new cellAxis();
+            $cell = new CellAxis();
             $cell->hydrateObj($this->data['member']);
             $this->data['cellAxisSet'][$this->data['axisName']][$this->data['i']][] = $cell;
         }
