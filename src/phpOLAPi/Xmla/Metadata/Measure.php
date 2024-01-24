@@ -52,6 +52,16 @@ class Measure extends MetadataBase implements MeasureInterface
 	}
 
     /**
+     * Get group name
+     *
+     * @return String
+     *
+     */
+    public function getGroupName(){
+        return $this->groupName;
+    }
+
+    /**
      * Get aggregator
      *
      * @return String aggregator
@@ -96,7 +106,8 @@ class Measure extends MetadataBase implements MeasureInterface
 		$this->connection = $connection;
 		$this->name = parent::getPropertyFromNode($node, 'MEASURE_NAME', false);
 		$this->uniqueName = parent::getPropertyFromNode($node, 'MEASURE_UNIQUE_NAME', false);
-		$this->description = parent::getPropertyFromNode($node, 'DESCRIPTION');
+		$this->groupName = parent::getPropertyFromNode($node, 'MEASUREGROUP_NAME', false);
+        	$this->description = parent::getPropertyFromNode($node, 'DESCRIPTION');
 		$this->caption = parent::getPropertyFromNode($node, 'MEASURE_CAPTION');
 		$this->aggregator = parent::getPropertyFromNode($node, 'MEASURE_AGGREGATOR');
 		$this->dataType = parent::getPropertyFromNode($node, 'DATA_TYPE');
