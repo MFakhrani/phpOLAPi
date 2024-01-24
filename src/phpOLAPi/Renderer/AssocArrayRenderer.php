@@ -41,12 +41,12 @@ class AssocArrayRenderer implements RendererInterface
                 }
                 
                 // Cell data (columns)
-                $rowNum = count($resultSet->getColAxisSet());
+                $rowNum = count($resultSet->getColAxisSet() ?? []);
                 $start =  $rowNum * $row;
                 $stop = $start + $rowNum;
                 for ($i=$start; $i < $stop; $i++) {
                     if (isset($dataSet[$i])) {
-                        $rowContent[] = $dataSet[$i]->getValue();
+                        $rowContent[] = (double) $dataSet[$i]->getValue();
                     } else {
                         $rowContent[] = '';
                     }
@@ -64,7 +64,7 @@ class AssocArrayRenderer implements RendererInterface
                     $rowContent = [];
                     foreach ($colNrs as $colNr) {
                         $data = $dataSet[$colNr];
-                        $rowContent[$keys[$colNr]] = ($data === null ? '' : $data->getValue());
+                        $rowContent[$keys[$colNr]] = ($data === null ? '' : (double) $data->getValue());
                     }
                     $table[] = $rowContent;
                 }
