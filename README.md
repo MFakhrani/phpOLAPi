@@ -15,7 +15,7 @@ Install
 -----
 
 ```
-composer require kabachello/phpolapi
+composer require fakhrani/phpolapi
 ```
 
 phpOLAPi runs on PHP 5.3.2 and above.

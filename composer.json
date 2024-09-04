@@ -1,29 +1,38 @@
 {
-	"name" : "kabachello/phpolapi",
-	"description" : "A PHP API for XMLA to connect to OLAP databases",
-	"keywords" : [
-		"OLAP",
-		"MDX",
-		"XMLA"
-	],
-	"license" : "MIT",
-	"authors" : [{
-			"name" : "Julien Jacottet",
-			"email" : "jjacottet@gmail.com"
-		}, {
-			"name" : "Andrej Kabachnik",
-			"email" : "kabachnik@hotmail.com"
-		}
-	],
-	"require-dev" : {
-		"phpunit/PHPUnit" : "3.7.*"
-	},
-	"autoload" : {
-		"psr-0" : {
-			"phpOLAPi" : "src"
-		}
-	},
-	"support" : {
-		"issues" : "https://github.com/kabachello/phpOLAPi/issues"
-	}
+  "name": "fakhrani/phpolapi",
+  "description": "A PHP API for XMLA to connect to OLAP databases",
+  "keywords": [
+    "OLAP",
+    "MDX",
+    "XMLA"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Julien Jacottet",
+      "email": "jjacottet@gmail.com"
+    },
+    {
+      "name": "Andrej Kabachnik",
+      "email": "kabachnik@hotmail.com"
+    },
+    {
+      "name": "Hassan Ammoei"
+    },
+    {
+      "name": "Mohammad Fakhrani",
+      "email": "mohammad.fakhrani@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "phpunit/PHPUnit": "3.7.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "phpOLAPi": "src"
+    }
+  },
+  "support": {
+    "issues": "https://github.com/MFakhrani/phpOLAPi/issues"
+  }
 }
